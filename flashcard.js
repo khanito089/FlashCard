@@ -81,12 +81,14 @@ const cardsArray = [{
 ]
 
 const gameBoard = document.querySelector('.grid')
-const playAgain = document.querySelector('button')
+const playAgain = document.querySelector('.button')
+const scoreBoard = document.querySelector('.score-board')
 
 let cardSelected = []
 let cardImg = []
+let cardsRemoved = []
 let click = 0
-
+let score = 0
 
 function startGame() {
 
@@ -104,12 +106,16 @@ function startGame() {
 
 function flipCard(event) {
     let cardType = event.target.getAttribute('img-id')
+
+    if (cardsRemoved.includes(cardType)) return
+    
     cardSelected.push(cardsArray[cardType].name)
     cardImg.push(cardType)
     event.target.setAttribute('src', cardsArray[cardType].img)
     click++
+
     if (click > 0 && click % 2 === 0) {
-        setTimeout(checkIfMatch, 500);
+        setTimeout(checkIfMatch, 500)
     }
 }
 
@@ -117,17 +123,25 @@ function checkIfMatch() {
     let images = document.querySelectorAll('img')
     const firstCard = cardImg[0]
     const secondCard = cardImg[1]
-    if (cardSelected[0] === cardSelected[1]) {
+
+    if (cardSelected[0] === cardSelected[1] && firstCard !== secondCard) {
         images[firstCard].setAttribute('src', '')
         images[secondCard].setAttribute('src', '')
-         alert ("That's a match")
+        alert("That's a match")
+
+        score += 1
+        scoreBoard.innerHTML = score
+
+        cardsRemoved.push(firstCard)
+        cardsRemoved.push(secondCard)
     } else {
-        images[firstCard].setAttribute('src', 'img/backOfCard.png');
-        images[secondCard].setAttribute('src', 'img/backOfCard.png');
+        images[firstCard].setAttribute('src', 'img/backOfCard.png')
+        images[secondCard].setAttribute('src', 'img/backOfCard.png')
     }
     cardSelected = []
     cardImg = []
 }
+
 
 startGame()
 
