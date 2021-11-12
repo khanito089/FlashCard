@@ -14,4 +14,4 @@
 > Not Mobile Friendly
 
 ### Enjoy !
-![Flash-Card-Game](https://github.com/[khanito089]/[FlashCard-Game]/blob/[master]/img.FlashCard-Game.png?raw=true)
+![img](img/FlashCard-Game.png)
